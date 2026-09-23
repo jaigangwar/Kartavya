@@ -7,7 +7,7 @@ import BubbleSelector from '@/components/BubbleSelector';
 import { motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 
-export default function PatientDetails() {
+export default function PatientDetails({ isKiosk }) {
   const { data, updateData, nextStep } = useRegistration();
   const { t } = useLanguage();
 
@@ -33,14 +33,14 @@ export default function PatientDetails() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={`grid grid-cols-1 ${isKiosk ? 'md:grid-cols-2 gap-8' : 'md:grid-cols-2 gap-6'}`}>
           <div className="md:col-span-2">
-            <FormField label={t('patientName')} value={data.patientName} onChange={(e) => updateData('patientName', e.target.value)} required />
+            <FormField label={t('patientName')} value={data.patientName} onChange={(e) => updateData('patientName', e.target.value)} isKiosk={isKiosk} required />
           </div>
           <div className="md:col-span-2">
-            <FormField label={t('fatherName')} value={data.fatherName} onChange={(e) => updateData('fatherName', e.target.value)} required />
+            <FormField label={t('fatherName')} value={data.fatherName} onChange={(e) => updateData('fatherName', e.target.value)} isKiosk={isKiosk} required />
           </div>
-          <FormField label={t('age')} type="number" value={data.age} onChange={(e) => updateData('age', e.target.value)} min="1" max="120" required />
+          <FormField label={t('age')} type="number" value={data.age} onChange={(e) => updateData('age', e.target.value)} min="1" max="120" isKiosk={isKiosk} required />
           <BubbleSelector
             label={t('sex')}
             options={[
@@ -49,21 +49,22 @@ export default function PatientDetails() {
             ]}
             value={data.sex}
             onChange={(val) => updateData('sex', val)}
+            isKiosk={isKiosk}
           />
           <div className="md:col-span-2">
-            <FormField label={t('address')} value={data.address} onChange={(e) => updateData('address', e.target.value)} required />
+            <FormField label={t('address')} value={data.address} onChange={(e) => updateData('address', e.target.value)} isKiosk={isKiosk} required />
           </div>
         </div>
 
         <div className="pt-6 border-t border-slate-200 dark:border-white/10">
-          <h3 className="text-lg font-heading font-semibold text-slate-800 dark:text-slate-200 mb-6">{t('contactDetails')}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <FormField label={t('mobile')} type="tel" value={data.mobile} onChange={(e) => updateData('mobile', e.target.value)} pattern="[0-9]{10}" placeholder="10-digit number" required />
-            <FormField label={t('email')} type="email" value={data.email} onChange={(e) => updateData('email', e.target.value)} placeholder="name@example.com" />
+          <h3 className={`font-heading font-semibold text-slate-800 dark:text-slate-200 mb-6 ${isKiosk ? 'text-2xl' : 'text-lg'}`}>{t('contactDetails')}</h3>
+          <div className={`grid grid-cols-1 ${isKiosk ? 'md:grid-cols-2 gap-8' : 'md:grid-cols-2 gap-6'}`}>
+            <FormField label={t('mobile')} type="tel" value={data.mobile} onChange={(e) => updateData('mobile', e.target.value)} pattern="[0-9]{10}" placeholder="10-digit number" isKiosk={isKiosk} required />
+            <FormField label={t('email')} type="email" value={data.email} onChange={(e) => updateData('email', e.target.value)} placeholder="name@example.com" isKiosk={isKiosk} />
           </div>
         </div>
 
-        <button type="submit" className="btn-primary w-full text-lg py-4">
+        <button type="submit" className={`${isKiosk ? 'btn-primary-lg py-5 text-2xl' : 'btn-primary py-4 text-lg'} w-full`}>
           {t('continue')}
         </button>
       </form>

@@ -6,7 +6,7 @@ import { useRegistration } from '@/context/RegistrationContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { Fingerprint, CheckCircle2, ScanFace, ChevronLeft, Info } from 'lucide-react';
 
-export default function AadhaarVerification() {
+export default function AadhaarVerification({ isKiosk }) {
   const { updateData, nextStep, prevStep } = useRegistration();
   const { t } = useLanguage();
   const [scanning, setScanning] = useState(false);
@@ -41,14 +41,14 @@ export default function AadhaarVerification() {
       </div>
 
       <div className="mb-8">
-        <button onClick={prevStep} className="text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center gap-1 mb-4 transition-colors">
-          <ChevronLeft className="w-4 h-4" /> {t('back')}
+        <button onClick={prevStep} className={`${isKiosk ? 'text-lg mb-6' : 'text-sm mb-4'} font-medium text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center gap-1 transition-colors`}>
+          <ChevronLeft className={isKiosk ? 'w-5 h-5' : 'w-4 h-4'} /> {t('back')}
         </button>
-        <h2 className="text-3xl font-heading font-bold text-slate-900 dark:text-white mb-2">{t('verifyIdentity')}</h2>
-        <p className="text-slate-600 dark:text-slate-400">{t('verifyIdentitySub')}</p>
+        <h2 className={`${isKiosk ? 'text-4xl mb-4' : 'text-3xl mb-2'} font-heading font-bold text-slate-900 dark:text-white`}>{t('verifyIdentity')}</h2>
+        <p className={`${isKiosk ? 'text-xl' : ''} text-slate-600 dark:text-slate-400`}>{t('verifyIdentitySub')}</p>
       </div>
 
-      <div className="card border-2 border-dashed border-slate-300 dark:border-slate-700 p-12 flex flex-col items-center justify-center min-h-[400px] relative overflow-hidden group">
+      <div className={`card border-2 border-dashed border-slate-300 dark:border-slate-700 p-12 flex flex-col items-center justify-center relative overflow-hidden group ${isKiosk ? 'min-h-[500px]' : 'min-h-[400px]'}`}>
         
         {scanning && (
           <div className="absolute inset-0 bg-brand/5 pointer-events-none">

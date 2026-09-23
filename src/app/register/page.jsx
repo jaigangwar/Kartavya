@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/context/RegistrationContext';
 import PatientDetails from '@/screens/PatientDetails';
 import AadhaarVerification from '@/screens/AadhaarVerification';
@@ -10,6 +11,8 @@ import RegistrationSuccess from '@/screens/RegistrationSuccess';
 import OPDSlip from '@/screens/OPDSlip';
 import { Shield } from 'lucide-react';
 import Link from 'next/link';
+import KioskLayout from '@/components/KioskLayout';
+import ProgressBar from '@/components/ProgressBar';
 
 const steps = [
   PatientDetails,
@@ -22,36 +25,63 @@ const steps = [
 
 export default function RegisterPage() {
   const { step, setMode, resetRegistration } = useRegistration();
+  const searchParams = useSearchParams();
+  const isKiosk = searchParams.get('kiosk') === 'true';
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMode('online');
-    resetRegistration();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    setMounted(true);
+    setMode(isKiosk ? 'kiosk' : 'online');
+    // We shouldn't reset on every render if we just changed step.
+    // Resetting here was clearing data on hot reloads or strict mode.
+    // Assuming context handles initial state.
+  }, [isKiosk, setMode]);
+
+  if (!mounted) return null;
 
   const StepComponent = steps[step] || PatientDetails;
 
+  const content = (
+    <div className={`${isKiosk ? 'max-w-6xl' : 'max-w-4xl'} mx-auto px-6 py-12`}>
+      {/* Show progress bar unless we are on Success (4) or Slip (5) */}
+      {step < 4 && (
+        <div className="mb-12">
+          <ProgressBar />
+        </div>
+      )}
+      <div className={`${isKiosk ? 'glass-card p-12 shadow-2xl' : ''}`}>
+        <StepComponent isKiosk={isKiosk} />
+      </div>
+    </div>
+  );
+
+  if (isKiosk) {
+    return <KioskLayout>{content}</KioskLayout>;
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 no-print">
+      <header className="glass border-b border-white/10 no-print sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-brand flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-accent flex items-center justify-center">
               <Shield className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h1 className="font-heading font-bold text-brand text-sm tracking-tight">KARTAVYA</h1>
-              <p className="text-[10px] text-slate-500 -mt-0.5">OPD Registration</p>
+              <h1 className="font-heading font-bold text-brand dark:text-brand-300 text-sm tracking-tight">KARTAVYA</h1>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 -mt-0.5">OPD Registration</p>
             </div>
           </Link>
-          <p className="text-xs text-slate-400 hidden sm:block">Rohilkhand Medical College and Hospital</p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-slate-400 hidden sm:block">Rohilkhand Medical College and Hospital</p>
+          </div>
         </div>
       </header>
 
       {/* Step Content */}
-      <main className="pb-12">
-        <StepComponent isKiosk={false} />
+      <main className="pb-12 relative z-10">
+        {content}
       </main>
     </div>
   );
