@@ -202,7 +202,7 @@ export default function OPDSlip({ isKiosk = false }) {
                 {/* 1. Vitals */}
                 <div>
                   <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '2px', color: '#333' }}>Vitals</p>
-                  <div style={{ border: '1px dashed #ccc', minHeight: '75px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
+                  <div style={{ border: '1px dashed #ccc', minHeight: '110px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
                     <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write vitals here...</span>
                   </div>
                 </div>
@@ -233,7 +233,7 @@ export default function OPDSlip({ isKiosk = false }) {
                       <p style={{ fontSize: '5px', color: '#666', mt: '1px' }}>Nav</p>
                     </div>
                   </div>
-                  <div style={{ border: '1px dashed #ccc', minHeight: '40px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
+                  <div style={{ border: '1px dashed #ccc', minHeight: '85px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
                     <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests (e.g. LFT, KFT)...</span>
                   </div>
                 </div>
