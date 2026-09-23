@@ -278,26 +278,11 @@ export default function OPDSlip({ isKiosk = false }) {
                   backgroundAttachment: 'local',
                   minHeight: '400px'
                 }}>
-                  {/* Symptoms prefill */}
-                  {data.symptoms && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '4px',
-                      left: '8px',
-                      right: '8px',
-                      fontSize: '11px',
-                      color: '#444',
-                      background: 'rgba(255,255,255,0.8)',
-                      padding: '2px 4px'
-                    }}>
-                      <span style={{ fontWeight: 'bold' }}>C/O:</span> {translateToMedicalTerms(data.symptoms)}
-                    </div>
-                  )}
                   <textarea 
                     style={{
                       width: '100%', height: '100%', background: 'transparent', border: 'none', resize: 'none',
                       lineHeight: '24px', padding: '0 8px', outline: 'none', fontSize: '14px',
-                      marginTop: data.symptoms ? '24px' : '0'
+                      marginTop: '0'
                     }}
                   />
                 </div>
