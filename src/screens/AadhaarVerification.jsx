@@ -51,23 +51,27 @@ export default function AadhaarVerification({ isKiosk }) {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 mb-6">
-        <button onClick={() => setScanType('aadhaar')} className={`flex-1 py-3 px-4 rounded-xl font-semibold border-2 transition-all ${scanType === 'aadhaar' ? 'bg-brand/10 border-brand text-brand' : 'glass border-transparent text-slate-500'}`}>
-          Aadhaar Biometric
+      <div className="flex flex-wrap gap-3 mb-6">
+        <button onClick={() => setScanType('aadhaar')} className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-semibold border-2 transition-all ${scanType === 'aadhaar' ? 'bg-brand/10 border-brand text-brand' : 'glass border-transparent text-slate-500'}`}>
+          Aadhaar
         </button>
-        <button onClick={() => setScanType('abha')} className={`flex-1 py-3 px-4 rounded-xl font-semibold border-2 transition-all flex items-center justify-center gap-2 ${scanType === 'abha' ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600' : 'glass border-transparent text-slate-500'}`}>
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          ABHA Card QR
+        <button onClick={() => setScanType('abha')} className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-semibold border-2 transition-all flex items-center justify-center gap-2 ${scanType === 'abha' ? 'bg-emerald-500/10 border-emerald-500 text-emerald-600' : 'glass border-transparent text-slate-500'}`}>
+          <span className={`w-2 h-2 rounded-full bg-emerald-500 ${scanType === 'abha' ? 'animate-pulse' : ''}`} />
+          ABHA
+        </button>
+        <button onClick={() => setScanType('face')} className={`flex-1 min-w-[120px] py-2 px-3 rounded-xl font-semibold border-2 transition-all flex items-center justify-center gap-2 ${scanType === 'face' ? 'bg-purple-500/10 border-purple-500 text-purple-600' : 'glass border-transparent text-slate-500'}`}>
+          <ScanFace className="w-4 h-4" />
+          Face Scan
         </button>
       </div>
 
       <div className={`card border-2 border-dashed border-slate-300 dark:border-slate-700 p-12 flex flex-col items-center justify-center relative overflow-hidden group ${isKiosk ? 'min-h-[450px]' : 'min-h-[400px]'}`}>
         
         {scanning && (
-          <div className={`absolute inset-0 pointer-events-none ${scanType === 'abha' ? 'bg-emerald-500/5' : 'bg-brand/5'}`}>
-            <div className={`absolute w-full h-1 shadow-[0_0_15px_rgba(41,128,185,1)] animate-scan-line ${scanType === 'abha' ? 'bg-emerald-500' : 'bg-brand-500'}`} />
+          <div className={`absolute inset-0 pointer-events-none ${scanType === 'abha' ? 'bg-emerald-500/5' : scanType === 'face' ? 'bg-purple-500/5' : 'bg-brand/5'}`}>
+            <div className={`absolute w-full h-1 shadow-[0_0_15px_rgba(0,0,0,0.5)] animate-scan-line ${scanType === 'abha' ? 'bg-emerald-500' : scanType === 'face' ? 'bg-purple-500' : 'bg-brand-500'}`} />
             <div className="absolute inset-0 flex items-center justify-center animate-pulse-gentle">
-              <ScanFace className={`w-64 h-64 ${scanType === 'abha' ? 'text-emerald-500/20' : 'text-brand-500/20'}`} />
+              <ScanFace className={`w-64 h-64 ${scanType === 'abha' ? 'text-emerald-500/20' : scanType === 'face' ? 'text-purple-500/20' : 'text-brand-500/20'}`} />
             </div>
           </div>
         )}
@@ -80,18 +84,22 @@ export default function AadhaarVerification({ isKiosk }) {
                 disabled={scanning}
                 className={`w-32 h-32 mx-auto rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-6 
                 hover:shadow-2xl transition-all duration-300 group disabled:opacity-80
-                border-4 border-transparent ${scanType === 'abha' ? 'hover:shadow-emerald-500/20 hover:border-emerald-500/30' : 'hover:shadow-brand-500/20 hover:border-brand-500/30'}`}
+                border-4 border-transparent ${scanType === 'abha' ? 'hover:shadow-emerald-500/20 hover:border-emerald-500/30' : scanType === 'face' ? 'hover:shadow-purple-500/20 hover:border-purple-500/30' : 'hover:shadow-brand-500/20 hover:border-brand-500/30'}`}
               >
                 <div className="relative">
-                  <Fingerprint className={`w-16 h-16 transition-all duration-500 ${scanType === 'abha' ? 'text-emerald-500' : 'text-brand-500'} ${scanning ? 'animate-spin-slow scale-110' : 'group-hover:scale-110'}`} />
+                  {scanType === 'face' ? (
+                    <ScanFace className={`w-16 h-16 transition-all duration-500 text-purple-500 ${scanning ? 'animate-spin-slow scale-110' : 'group-hover:scale-110'}`} />
+                  ) : (
+                    <Fingerprint className={`w-16 h-16 transition-all duration-500 ${scanType === 'abha' ? 'text-emerald-500' : 'text-brand-500'} ${scanning ? 'animate-spin-slow scale-110' : 'group-hover:scale-110'}`} />
+                  )}
                   {scanning && (
-                    <div className={`absolute inset-0 border-4 rounded-full animate-ripple border-t-transparent ${scanType === 'abha' ? 'border-emerald-500' : 'border-brand-500'}`} />
+                    <div className={`absolute inset-0 border-4 rounded-full animate-ripple border-t-transparent ${scanType === 'abha' ? 'border-emerald-500' : scanType === 'face' ? 'border-purple-500' : 'border-brand-500'}`} />
                   )}
                 </div>
               </button>
               
               <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
-                {scanning ? t('scanning') : (scanType === 'abha' ? 'Scan ABHA QR Code' : t('scanAadhaar'))}
+                {scanning ? t('scanning') : scanType === 'abha' ? 'Scan ABHA QR Code' : scanType === 'face' ? 'Look into the camera' : t('scanAadhaar')}
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">
                 {scanning ? t('holdSteady') : t('clickToSimulate')}

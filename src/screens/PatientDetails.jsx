@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { Info } from 'lucide-react';
 
 export default function PatientDetails({ isKiosk }) {
-  const { data, updateData, nextStep } = useRegistration();
+  const { data, updateData, nextStep, prevStep } = useRegistration();
   const { t } = useLanguage();
 
   const handleSubmit = (e) => {
@@ -64,9 +64,14 @@ export default function PatientDetails({ isKiosk }) {
           </div>
         </div>
 
-        <button type="submit" className={`${isKiosk ? 'btn-primary-lg py-5 text-2xl' : 'btn-primary py-4 text-lg'} w-full`}>
-          {t('continue')}
-        </button>
+        <div className="flex gap-4">
+          <button type="button" onClick={prevStep} className={`${isKiosk ? 'btn-ghost text-2xl px-8' : 'btn-ghost px-6'}`}>
+            {t('back')}
+          </button>
+          <button type="submit" className={`${isKiosk ? 'btn-primary-lg py-5 text-2xl flex-1' : 'btn-primary py-4 text-lg flex-1'}`}>
+            {t('continue')}
+          </button>
+        </div>
       </form>
     </motion.div>
   );

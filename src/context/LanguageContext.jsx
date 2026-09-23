@@ -75,9 +75,9 @@ const translations = {
     skipVerification: "Skip verification for now",
     
     // Progress Bar Steps
-    step1: "Patient Details",
-    step2: "Verification",
-    step3: "Department",
+    step1: "Department",
+    step2: "Patient Details",
+    step3: "Verification",
     step4: "Review",
     step5: "OPD Slip",
   },
@@ -151,9 +151,9 @@ const translations = {
     skipVerification: "अभी के लिए सत्यापन छोड़ें (Skip)",
 
     // Progress Bar Steps
-    step1: "मरीज़ का विवरण",
-    step2: "सत्यापन",
-    step3: "विभाग",
+    step1: "विभाग",
+    step2: "मरीज़ का विवरण",
+    step3: "सत्यापन",
     step4: "समीक्षा",
     step5: "ओपीडी पर्ची",
   }

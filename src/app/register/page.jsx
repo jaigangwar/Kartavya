@@ -15,9 +15,9 @@ import KioskLayout from '@/components/KioskLayout';
 import ProgressBar from '@/components/ProgressBar';
 
 const steps = [
+  DepartmentSelection,
   PatientDetails,
   AadhaarVerification,
-  DepartmentSelection,
   Confirmation,
   RegistrationSuccess,
   OPDSlip,
@@ -42,7 +42,7 @@ function RegisterContent() {
     <div className={`${isKiosk ? 'max-w-7xl' : 'max-w-4xl'} mx-auto px-6 py-12`}>
       {step < 4 && (
         <div className="mb-12">
-          <ProgressBar />
+          <ProgressBar currentStep={step} isKiosk={isKiosk} />
         </div>
       )}
       <div className={`${isKiosk ? 'glass-card p-12 shadow-2xl' : ''}`}>
