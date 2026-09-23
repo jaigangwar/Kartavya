@@ -91,7 +91,7 @@ export default function OPDSlip({ isKiosk = false }) {
         <div
           ref={slipRef}
           className="opd-slip bg-white w-full shadow-2xl border border-slate-200"
-          style={{ maxWidth: '210mm', padding: '24px 28px', minHeight: '297mm', position: 'relative' }}
+          style={{ maxWidth: '210mm', padding: '24px 28px', height: '275mm', position: 'relative', overflow: 'hidden' }}
         >
           {/* Watermark */}
           <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
@@ -100,7 +100,7 @@ export default function OPDSlip({ isKiosk = false }) {
             </div>
           </div>
 
-          <div className="relative z-10 flex flex-col h-full" style={{ minHeight: 'calc(297mm - 48px)' }}>
+          <div className="relative z-10 flex flex-col h-full">
             
             {/* ══════════ HEADER ══════════ */}
             <div className="opd-slip-header flex justify-between items-end mb-3">
