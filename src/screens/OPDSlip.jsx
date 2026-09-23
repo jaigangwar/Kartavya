@@ -222,8 +222,8 @@ export default function OPDSlip({ isKiosk = false }) {
                   </div>
                 </div>
 
-                {/* 3. Investigation (Fixed Height) */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '4px' }}>
+                {/* 3. Investigation (Takes Remaining Space) */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '4px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
                     <div style={{ flex: 1 }}>
                       <BubbleSelector label="Investigation" options={investigationOptions} value={slipData.investigation} onChange={(v) => updateSlipData('investigation', v)} compact />
@@ -233,15 +233,9 @@ export default function OPDSlip({ isKiosk = false }) {
                       <p style={{ fontSize: '5px', color: '#666', mt: '1px' }}>Nav</p>
                     </div>
                   </div>
-                  <div style={{ border: '1px dashed #ccc', minHeight: '85px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
-                    <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests (e.g. LFT, KFT)...</span>
+                  <div style={{ border: '1px dashed #ccc', flex: 1, borderRadius: '4px', padding: '4px', background: '#fdfdfd', minHeight: '120px' }}>
+                    <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests (e.g. LFT, KFT) and notes here...</span>
                   </div>
-                </div>
-
-                {/* 4. Advice (Takes Remaining Space) */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '4px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '2px' }}>Advice</p>
-                  <textarea value={slipData.advice} onChange={(e) => updateSlipData('advice', e.target.value)} placeholder="Doctor's advice/notes..." style={{ width: '100%', flex: 1, border: '1px dashed #ccc', borderRadius: '4px', padding: '4px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none', background: 'transparent', minHeight: '65px' }} />
                 </div>
 
                 {/* 5. Follow-Up OMR */}
