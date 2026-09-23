@@ -22,8 +22,13 @@ export default function DepartmentSelection({ isKiosk = false }) {
 
   const suggestion = useMemo(() => suggestDepartment(data.symptoms), [data.symptoms]);
 
+  useEffect(() => {
+    if (suggestion && data.department !== suggestion) {
+      updateData('department', suggestion);
+    }
+  }, [suggestion, data.department, updateData]);
+
   const handleSelectDepartment = (dept) => { updateData('department', dept); setShowSymptoms(false); };
-  const handleUseSuggestion = () => { if (suggestion) updateData('department', suggestion); };
   const handleNext = () => { if (data.department) nextStep(); };
 
   const startListening = () => {
@@ -91,10 +96,9 @@ export default function DepartmentSelection({ isKiosk = false }) {
                   </div>
                   <p className="font-heading font-bold text-brand dark:text-brand-300">{suggestion}</p>
                 </div>
-                <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                  onClick={handleUseSuggestion} className="btn-primary text-sm py-2 px-4">
-                  {t('useSuggestion')}
-                </motion.button>
+                <motion.div whileHover={{ scale: 1.05 }} className="bg-brand/10 text-brand px-3 py-1.5 rounded-lg text-sm font-bold flex items-center gap-1">
+                  <CheckCircle2 className="w-4 h-4" /> Auto-Selected
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
