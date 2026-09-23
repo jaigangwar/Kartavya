@@ -41,7 +41,7 @@ export default function ProgressBar({ currentStep = 0, isKiosk = false }) {
                 </motion.div>
                 <span className={`mt-2 text-center whitespace-nowrap transition-colors duration-300
                   ${isKiosk ? 'text-sm' : 'text-xs'}
-                  ${isActive ? 'text-brand dark:text-brand-400 font-semibold' : isCompleted ? 'text-brand-500 dark:text-brand-400' : 'text-slate-400 dark:text-slate-600'}
+                  ${isActive ? 'text-brand dark:text-brand-300 font-semibold' : isCompleted ? 'text-brand-500 dark:text-brand-200' : 'text-slate-400 dark:text-slate-500'}
                 `}>
                   {label}
                 </span>

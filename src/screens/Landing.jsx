@@ -72,7 +72,7 @@ function FloatingIcons() {
 export default function Landing() {
   const router = useRouter();
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-500 overflow-hidden relative">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-500 relative overflow-x-hidden">
       {/* Decorative Orbs */}
       <div className="orb w-[500px] h-[500px] bg-brand-500 -top-64 -right-64 fixed" />
       <div className="orb w-[400px] h-[400px] bg-accent fixed bottom-0 -left-48" />

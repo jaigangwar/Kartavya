@@ -27,7 +27,6 @@ export default function DepartmentSelection({ isKiosk = false }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-      <ProgressBar currentStep={2} isKiosk={isKiosk} />
       <div className={cls}>
         <div className="mb-8">
           <h2 className={`font-heading font-bold text-slate-900 dark:text-white ${isKiosk ? 'text-3xl' : 'text-2xl'}`}>Where would you like to go?</h2>

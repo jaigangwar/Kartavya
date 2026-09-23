@@ -197,46 +197,27 @@ export default function OPDSlip({ isKiosk = false }) {
             <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '12px', flex: 1 }}>
               
               {/* ─── LEFT COLUMN ─── */}
-              <div style={{ borderRight: '1px solid #ddd', paddingRight: '10px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ borderRight: '1px solid #ddd', paddingRight: '10px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 
-                {/* Investigation + QR inline */}
-                <div style={{ marginBottom: '8px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
-                    <div style={{ flex: 1 }}>
-                      <BubbleSelector
-                        label="Investigation"
-                        options={investigationOptions}
-                        value={slipData.investigation}
-                        onChange={(v) => updateSlipData('investigation', v)}
-                        compact
-                      />
-                    </div>
-                    <div style={{ marginLeft: '6px', textAlign: 'center' }}>
-                      <QRCodeSVG value={`https://kartavya.hospital/nav/inv/${data.patientId}`} size={32} level="L" />
-                      <p style={{ fontSize: '6px', color: '#666', marginTop: '2px' }}>Nav</p>
-                    </div>
-                  </div>
-                  
-                  {/* Empty space for LFT/KFT */}
-                  <div style={{ border: '1px dashed #ccc', height: '40px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
-                    <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests here (e.g. LFT, KFT)...</span>
+                {/* 1. Vitals */}
+                <div>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '2px', color: '#333' }}>Vitals</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
+                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>BP:</span></div>
+                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>Pulse:</span></div>
+                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>Temp:</span></div>
+                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>Weight:</span></div>
                   </div>
                 </div>
 
-                {/* Triage (Moved to left, compact) */}
-                <div style={{ marginBottom: '8px', borderTop: '1px solid #eee', paddingTop: '8px' }}>
-                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>Triage</p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                {/* 2. Triage */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px', color: '#333' }}>Triage</p>
+                  <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '6px' }}>
                     {triageOptions.map((opt) => (
-                      <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
-                        <input 
-                          type="radio" 
-                          name="triage" 
-                          checked={slipData.triagePriority === opt.value}
-                          onChange={() => updateSlipData('triagePriority', opt.value)}
-                          style={{ margin: 0, width: '10px', height: '10px', accentColor: opt.color }}
-                        />
-                        <span style={{ fontSize: '10px', fontWeight: slipData.triagePriority === opt.value ? 'bold' : 'normal', color: slipData.triagePriority === opt.value ? opt.color : '#555' }}>
+                      <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: '2px', cursor: 'pointer' }}>
+                        <input type="radio" name="triage" checked={slipData.triagePriority === opt.value} onChange={() => updateSlipData('triagePriority', opt.value)} style={{ margin: 0, width: '9px', height: '9px', accentColor: opt.color }} />
+                        <span style={{ fontSize: '9px', fontWeight: slipData.triagePriority === opt.value ? 'bold' : 'normal', color: slipData.triagePriority === opt.value ? opt.color : '#555' }}>
                           {opt.label}
                         </span>
                       </label>
@@ -244,54 +225,45 @@ export default function OPDSlip({ isKiosk = false }) {
                   </div>
                 </div>
 
-                {/* Follow-Up OMR (Smaller space) */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '8px', marginBottom: '8px' }}>
-                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '4px' }}>
-                    Follow-Up
-                  </p>
-                  <div style={{ display: 'flex', gap: '8px' }}>
+                {/* 3. Investigation */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
                     <div style={{ flex: 1 }}>
+                      <BubbleSelector label="Investigation" options={investigationOptions} value={slipData.investigation} onChange={(v) => updateSlipData('investigation', v)} compact />
+                    </div>
+                    <div style={{ marginLeft: '4px', textAlign: 'center' }}>
+                      <QRCodeSVG value={`https://kartavya.hospital/nav/inv/${data.patientId}`} size={28} level="L" />
+                      <p style={{ fontSize: '5px', color: '#666', mt: '1px' }}>Nav</p>
+                    </div>
+                  </div>
+                  <div style={{ border: '1px dashed #ccc', height: '50px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
+                    <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests (e.g. LFT, KFT)...</span>
+                  </div>
+                </div>
+
+                {/* 4. Advice */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '2px' }}>Advice</p>
+                  <textarea value={slipData.advice} onChange={(e) => updateSlipData('advice', e.target.value)} placeholder="Doctor's advice/notes..." style={{ width: '100%', flex: 1, border: '1px dashed #ccc', borderRadius: '4px', padding: '4px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none', background: 'transparent', minHeight: '50px' }} />
+                </div>
+
+                {/* 5. Follow-Up OMR */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '4px' }}>Follow-Up</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div>
                       <span style={{ fontSize: '7px', color: '#666', display: 'block', marginBottom: '2px' }}>DAYS</span>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px' }}>
-                        {omrDays.map(d => (
-                          <div key={`day-${d}`} 
-                            onClick={() => updateSlipData('followUpDay', d)}
-                            className={`omr-bubble ${slipData.followUpDay === d ? 'filled' : ''}`}>
-                            {d}
-                          </div>
-                        ))}
+                        {omrDays.map(d => <div key={`day-${d}`} onClick={() => updateSlipData('followUpDay', d)} className={`omr-bubble ${slipData.followUpDay === d ? 'filled' : ''}`}>{d}</div>)}
                       </div>
                     </div>
                     <div>
                       <span style={{ fontSize: '7px', color: '#666', display: 'block', marginBottom: '2px' }}>MONTHS</span>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px' }}>
-                        {omrMonths.map(m => (
-                          <div key={`month-${m}`}
-                            onClick={() => updateSlipData('followUpMonth', m)}
-                            className={`omr-bubble ${slipData.followUpMonth === m ? 'filled' : ''}`}>
-                            {m}
-                          </div>
-                        ))}
+                        {omrMonths.map(m => <div key={`month-${m}`} onClick={() => updateSlipData('followUpMonth', m)} className={`omr-bubble ${slipData.followUpMonth === m ? 'filled' : ''}`}>{m}</div>)}
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Advice (Takes remaining left space) */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '8px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '4px' }}>
-                    Advice / Vitals
-                  </p>
-                  <textarea
-                    value={slipData.advice}
-                    onChange={(e) => updateSlipData('advice', e.target.value)}
-                    placeholder="BP, Weight, Notes..."
-                    style={{
-                      width: '100%', flex: 1, border: '1px dashed #ccc', borderRadius: '4px',
-                      padding: '4px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none',
-                      background: 'transparent', minHeight: '60px'
-                    }}
-                  />
                 </div>
 
               </div>
