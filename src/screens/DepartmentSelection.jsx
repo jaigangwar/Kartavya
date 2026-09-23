@@ -6,13 +6,14 @@ import { useRegistration } from '@/context/RegistrationContext';
 import { useLanguage } from '@/context/LanguageContext';
 import ProgressBar from '@/components/ProgressBar';
 import { departments, suggestDepartment } from '@/utils/symptomMapping';
-import { ArrowRight, ArrowLeft, Search, Sparkles, CheckCircle2, Building2, Brain } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Search, Sparkles, CheckCircle2, Building2, Brain, Mic } from 'lucide-react';
 
 export default function DepartmentSelection({ isKiosk = false }) {
   const { data, updateData, nextStep, prevStep } = useRegistration();
   const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [showSymptoms, setShowSymptoms] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return departments;
@@ -24,6 +25,28 @@ export default function DepartmentSelection({ isKiosk = false }) {
   const handleSelectDepartment = (dept) => { updateData('department', dept); setShowSymptoms(false); };
   const handleUseSuggestion = () => { if (suggestion) updateData('department', suggestion); };
   const handleNext = () => { if (data.department) nextStep(); };
+
+  const startListening = () => {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      alert('Speech recognition is not supported in this browser.');
+      return;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-IN'; // Can be dynamic based on LanguageContext
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      updateData('symptoms', (data.symptoms ? data.symptoms + ' ' : '') + transcript);
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+
+    recognition.start();
+  };
 
   const cls = isKiosk ? 'max-w-2xl mx-auto px-6 py-8' : 'max-w-2xl mx-auto px-4 sm:px-6 py-6';
 
@@ -95,9 +118,15 @@ export default function DepartmentSelection({ isKiosk = false }) {
               <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
                 <div className="mt-4">
-                  <textarea value={data.symptoms} onChange={(e) => updateData('symptoms', e.target.value)}
-                    placeholder={t('describeSymptomsPlaceholder')} rows={3}
-                    className={`${isKiosk ? 'glass-input-lg' : 'glass-input'} resize-none`} />
+                  <div className="relative">
+                    <textarea value={data.symptoms} onChange={(e) => updateData('symptoms', e.target.value)}
+                      placeholder={t('describeSymptomsPlaceholder')} rows={3}
+                      className={`${isKiosk ? 'glass-input-lg pr-16' : 'glass-input pr-12'} resize-none`} />
+                    <button onClick={startListening} title="Speak symptoms"
+                      className={`absolute right-3 top-3 p-2 rounded-full transition-all duration-300 ${isListening ? 'bg-red-500 text-white animate-pulse' : 'bg-slate-100 text-slate-500 hover:bg-brand/10 hover:text-brand dark:bg-slate-800 dark:text-slate-400'}`}>
+                      <Mic className={isKiosk ? 'w-6 h-6' : 'w-5 h-5'} />
+                    </button>
+                  </div>
 
                   <AnimatePresence>
                     {data.symptoms.length > 2 && suggestion && (
