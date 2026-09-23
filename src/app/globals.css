@@ -297,10 +297,10 @@
 /* ─── Kiosk ─── */
 .kiosk-mode {
   position: fixed; inset: 0;
-  overflow-y: auto; overflow-x: hidden;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
 }
-.kiosk-mode ::-webkit-scrollbar { display: none; }
+.kiosk-mode main::-webkit-scrollbar { display: none; }
 
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 5px; }

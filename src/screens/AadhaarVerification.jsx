@@ -82,20 +82,34 @@ export default function AadhaarVerification({ isKiosk }) {
               <button
                 onClick={handleScan}
                 disabled={scanning}
-                className={`w-32 h-32 mx-auto rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-6 
-                hover:shadow-2xl transition-all duration-300 group disabled:opacity-80
-                border-4 border-transparent ${scanType === 'abha' ? 'hover:shadow-emerald-500/20 hover:border-emerald-500/30' : scanType === 'face' ? 'hover:shadow-purple-500/20 hover:border-purple-500/30' : 'hover:shadow-brand-500/20 hover:border-brand-500/30'}`}
+                className={`mx-auto flex items-center justify-center mb-6 
+                transition-all duration-300 group disabled:opacity-80
+                border-4 border-transparent 
+                ${scanType === 'face' ? 'w-48 h-64 rounded-2xl bg-slate-200 dark:bg-slate-800 hover:shadow-purple-500/20 hover:border-purple-500/30 overflow-hidden relative' : 
+                `w-32 h-32 rounded-full bg-slate-100 dark:bg-slate-800 hover:shadow-2xl ${scanType === 'abha' ? 'hover:shadow-emerald-500/20 hover:border-emerald-500/30' : 'hover:shadow-brand-500/20 hover:border-brand-500/30'}`}`}
               >
-                <div className="relative">
-                  {scanType === 'face' ? (
-                    <ScanFace className={`w-16 h-16 transition-all duration-500 text-purple-500 ${scanning ? 'animate-spin-slow scale-110' : 'group-hover:scale-110'}`} />
-                  ) : (
+                {scanType === 'face' ? (
+                  <div className="relative w-full h-full flex flex-col items-center justify-center">
+                    {/* Camera Bracket corners */}
+                    <div className="absolute top-4 left-4 w-6 h-6 border-t-4 border-l-4 border-purple-500 rounded-tl-lg opacity-70" />
+                    <div className="absolute top-4 right-4 w-6 h-6 border-t-4 border-r-4 border-purple-500 rounded-tr-lg opacity-70" />
+                    <div className="absolute bottom-4 left-4 w-6 h-6 border-b-4 border-l-4 border-purple-500 rounded-bl-lg opacity-70" />
+                    <div className="absolute bottom-4 right-4 w-6 h-6 border-b-4 border-r-4 border-purple-500 rounded-br-lg opacity-70" />
+                    
+                    <ScanFace className={`w-16 h-16 transition-all duration-500 text-purple-500 ${scanning ? 'animate-pulse scale-110' : 'group-hover:scale-110'}`} />
+                    
+                    {scanning && (
+                      <div className="absolute top-0 left-0 w-full h-1 bg-purple-500 shadow-[0_0_10px_#a855f7] animate-scan-line" />
+                    )}
+                  </div>
+                ) : (
+                  <div className="relative">
                     <Fingerprint className={`w-16 h-16 transition-all duration-500 ${scanType === 'abha' ? 'text-emerald-500' : 'text-brand-500'} ${scanning ? 'animate-spin-slow scale-110' : 'group-hover:scale-110'}`} />
-                  )}
-                  {scanning && (
-                    <div className={`absolute inset-0 border-4 rounded-full animate-ripple border-t-transparent ${scanType === 'abha' ? 'border-emerald-500' : scanType === 'face' ? 'border-purple-500' : 'border-brand-500'}`} />
-                  )}
-                </div>
+                    {scanning && (
+                      <div className={`absolute inset-0 border-4 rounded-full animate-ripple border-t-transparent ${scanType === 'abha' ? 'border-emerald-500' : 'border-brand-500'}`} />
+                    )}
+                  </div>
+                )}
               </button>
               
               <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
