@@ -4,8 +4,10 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Shield, Clock, FileText, ArrowRight, Building2, Monitor, Tablet, Sparkles, Activity, HeartPulse, Stethoscope, Microscope } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
+import LanguageToggle from '@/components/LanguageToggle';
 import { useRef, useCallback, useEffect, useState } from 'react';
 
+// ...
 const fadeUp = { hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } };
 const stagger = { show: { transition: { staggerChildren: 0.1 } } };
 
@@ -93,6 +95,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="flex items-center gap-4">
+            <LanguageToggle />
             <ThemeToggle />
             <div className="hidden sm:block text-right">
               <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Rohilkhand Medical College</p>

@@ -1,83 +1,71 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/context/LanguageContext';
+import { Shield, Sparkles, HeartPulse, Stethoscope, Microscope, Activity } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useRegistration } from '@/context/RegistrationContext';
-import KioskLayout from '@/components/KioskLayout';
-import PatientDetails from '@/screens/PatientDetails';
-import AadhaarVerification from '@/screens/AadhaarVerification';
-import DepartmentSelection from '@/screens/DepartmentSelection';
-import Confirmation from '@/screens/Confirmation';
-import RegistrationSuccess from '@/screens/RegistrationSuccess';
-import OPDSlip from '@/screens/OPDSlip';
-import { Shield, ArrowRight, Hand } from 'lucide-react';
 
-const steps = [
-  PatientDetails,
-  AadhaarVerification,
-  DepartmentSelection,
-  Confirmation,
-  RegistrationSuccess,
-  OPDSlip,
-];
+function FloatingIcons() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
 
-function KioskWelcome({ onStart }) {
+  const icons = [
+    { Icon: HeartPulse, top: '25%', left: '15%', color: 'text-brand-400', delay: 0 },
+    { Icon: Activity, top: '20%', right: '20%', color: 'text-accent', delay: 1 },
+    { Icon: Stethoscope, bottom: '30%', left: '20%', color: 'text-blue-400', delay: 2 },
+    { Icon: Microscope, bottom: '35%', right: '15%', color: 'text-emerald-400', delay: 3 },
+  ];
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-8 text-center">
-      <div className="w-24 h-24 rounded-2xl bg-brand/10 flex items-center justify-center mb-8">
-        <Shield className="w-14 h-14 text-brand" />
-      </div>
-
-      <h1 className="font-heading text-4xl md:text-5xl font-bold text-slate-900 tracking-tight mb-3">
-        Welcome to <span className="text-brand">KARTAVYA</span>
-      </h1>
-
-      <p className="text-xl text-slate-500 mb-2">
-        Rohilkhand Medical College and Hospital
-      </p>
-
-      <p className="text-lg text-slate-400 mb-10 max-w-lg">
-        Register for your OPD appointment in just a few simple steps. No paperwork needed.
-      </p>
-
-      <button
-        onClick={onStart}
-        className="btn-primary-lg text-xl px-12 py-5 rounded-2xl shadow-lg shadow-brand/20"
-      >
-        <Hand className="w-6 h-6" />
-        Tap to Start Registration
-      </button>
-
-      <p className="text-sm text-slate-400 mt-8">
-        Touch the screen to begin • Takes less than 2 minutes
-      </p>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+      {icons.map((item, i) => (
+        <motion.div key={i}
+          className={`absolute ${item.color} opacity-20`}
+          style={{ top: item.top, left: item.left, right: item.right, bottom: item.bottom }}
+          animate={{ y: [0, -40, 0], rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 10, repeat: Infinity, delay: item.delay, ease: "easeInOut" }}
+        >
+          <item.Icon size={64} />
+        </motion.div>
+      ))}
     </div>
   );
 }
 
-export default function KioskPage() {
-  const { step, setStep, setMode, resetRegistration } = useRegistration();
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    setMode('kiosk');
-    resetRegistration();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleStart = () => {
-    setStarted(true);
-    setStep(0);
-  };
-
-  const StepComponent = steps[step] || PatientDetails;
+export default function KioskStart() {
+  const router = useRouter();
+  const { t } = useLanguage();
 
   return (
-    <KioskLayout>
-      {!started ? (
-        <KioskWelcome onStart={handleStart} />
-      ) : (
-        <StepComponent isKiosk={true} />
-      )}
-    </KioskLayout>
+    <div className="flex-1 flex flex-col items-center justify-center p-8 relative">
+      <FloatingIcons />
+
+      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }}
+        className="text-center max-w-3xl relative z-10">
+        
+        <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-brand to-accent flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-brand/20 animate-float">
+          <Shield className="w-12 h-12 text-white" />
+        </div>
+
+        <h2 className="font-heading text-5xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight mb-6 drop-shadow-sm">
+          {t('kioskWelcome')}
+        </h2>
+        
+        <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-12">
+          {t('kioskSub')}
+        </p>
+
+        <button onClick={() => router.push('/register?kiosk=true')}
+          className="btn-primary-lg text-2xl px-12 py-6 w-full max-w-md shadow-2xl shadow-brand/30 hover:shadow-brand/50 group overflow-hidden relative">
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            <Sparkles className="w-6 h-6 animate-pulse-gentle" />
+            {t('tapToStart')}
+          </span>
+          <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+        </button>
+      </motion.div>
+    </div>
   );
 }

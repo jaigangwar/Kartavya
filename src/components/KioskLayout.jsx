@@ -2,6 +2,7 @@
 
 import { Shield } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export default function KioskLayout({ children }) {
   return (
@@ -22,6 +23,7 @@ export default function KioskLayout({ children }) {
           </div>
         </div>
         <div className="flex items-center gap-4">
+          <LanguageToggle />
           <ThemeToggle />
           <div className="text-right">
             <p className="text-white/70 text-xs font-medium">Rohilkhand Medical College</p>
