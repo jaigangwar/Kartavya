@@ -19,7 +19,7 @@ const initialData = {
   department: '',
   symptoms: '',
   patientId: '',
-  doctorName: '',
+  doctorName: 'Dr. S. K. Gupta (MD)',
 };
 
 const initialSlipData = {

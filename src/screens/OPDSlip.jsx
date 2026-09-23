@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useRegistration } from '@/context/RegistrationContext';
 import BubbleSelector from '@/components/BubbleSelector';
 import { QRCodeSVG } from 'qrcode.react';
-import { Printer, Download, RotateCcw, ArrowLeft, Sparkles } from 'lucide-react';
+import { Printer, Download, RotateCcw, ArrowLeft, Sparkles, CheckCircle2, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const investigationOptions = [
@@ -99,198 +99,144 @@ export default function OPDSlip({ isKiosk = false }) {
             </div>
           </div>
 
-          <div className="relative z-10">
+          <div className="relative z-10 flex flex-col h-full" style={{ minHeight: 'calc(297mm - 48px)' }}>
+            
             {/* ══════════ HEADER ══════════ */}
-            <div className="opd-slip-header flex justify-between items-end mb-4">
+            <div className="opd-slip-header flex justify-between items-end mb-3">
               <div className="flex-1">
-                <h1 style={{ fontSize: '20px', fontWeight: 'bold', letterSpacing: '1px', margin: 0, textTransform: 'uppercase', color: '#1a5276' }}>
+                <h1 style={{ fontSize: '18px', fontWeight: 'bold', letterSpacing: '1px', margin: 0, textTransform: 'uppercase', color: '#1a5276' }}>
                   Rohilkhand Medical College and Hospital
                 </h1>
-                <p style={{ fontSize: '12px', fontWeight: 'bold', letterSpacing: '2px', margin: '4px 0 0', textTransform: 'uppercase', color: '#444' }}>
+                <p style={{ fontSize: '11px', fontWeight: 'bold', letterSpacing: '2px', margin: '2px 0 0', textTransform: 'uppercase', color: '#444' }}>
                   OPD Registration Slip
                 </p>
               </div>
               <div className="text-right">
                 <QRCodeSVG
                   value={`https://kartavya.hospital/nav/${data.patientId}`}
-                  size={50}
+                  size={42}
                   level="L"
                 />
-                <p style={{ fontSize: '8px', color: '#666', marginTop: '2px' }}>Main Navigation</p>
+                <p style={{ fontSize: '7px', color: '#666', marginTop: '2px' }}>Main Nav</p>
               </div>
             </div>
 
             {/* ══════════ DEPARTMENT & DOCTOR ══════════ */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', borderBottom: '1px solid #ddd', paddingBottom: '8px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px', borderBottom: '1px solid #ddd', paddingBottom: '6px' }}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '12px', color: '#666' }}>Department:</span>
-                  <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#1a5276' }}>{data.department}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                  <span style={{ fontSize: '11px', color: '#666' }}>Department:</span>
+                  <span style={{ fontSize: '14px', fontWeight: 'bold', color: '#1a5276' }}>{data.department}</span>
                   {data.symptoms && (
-                    <span style={{ fontSize: '9px', background: '#eaf2f8', color: '#2980b9', padding: '2px 6px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '2px' }}>
-                      <Sparkles size={10} /> AI Assigned
+                    <span style={{ fontSize: '8px', background: '#eaf2f8', color: '#2980b9', padding: '1px 5px', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '2px' }}>
+                      <Sparkles size={8} /> AI Assigned
                     </span>
                   )}
                 </div>
                 <div>
-                  <span style={{ fontSize: '12px', color: '#666' }}>Doctor Name:</span>
-                  <span style={{ fontSize: '14px', fontWeight: 'bold', borderBottom: '1px dashed #999', display: 'inline-block', minWidth: '200px', marginLeft: '6px' }}>
+                  <span style={{ fontSize: '11px', color: '#666' }}>Doctor Name:</span>
+                  <span style={{ fontSize: '13px', fontWeight: 'bold', borderBottom: '1px dashed #999', display: 'inline-block', minWidth: '180px', marginLeft: '6px' }}>
                     {data.doctorName || 'Dr. '}
                   </span>
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <span style={{ fontSize: '11px', color: '#666' }}>Date: </span>
-                <span style={{ fontSize: '13px', fontWeight: 'bold' }}>{data.registrationDate}</span>
+                <span style={{ fontSize: '10px', color: '#666' }}>Date: </span>
+                <span style={{ fontSize: '12px', fontWeight: 'bold' }}>{data.registrationDate}</span>
               </div>
             </div>
 
-            {/* ══════════ PATIENT INFO ROW ══════════ */}
+            {/* ══════════ CONCISE PATIENT INFO ══════════ */}
             <div style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '12px',
-              fontSize: '11px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1.5fr 0.8fr 1.5fr 1fr 1.2fr',
+              gap: '6px',
+              fontSize: '10px',
               borderBottom: '1px solid #1a1a1a',
-              paddingBottom: '10px',
-              marginBottom: '16px',
+              paddingBottom: '6px',
+              marginBottom: '10px',
               background: '#fafafa',
-              padding: '10px',
+              padding: '6px 8px',
               borderRadius: '4px'
             }}>
-              <div style={{ flex: '1 1 120px' }}>
-                <span style={{ color: '#666', fontSize: '9px', textTransform: 'uppercase' }}>Patient ID</span><br />
-                <span style={{ fontWeight: 'bold', fontFamily: 'monospace', fontSize: '13px', color: '#c0392b' }}>{data.patientId}</span>
+              <div>
+                <span style={{ color: '#666', fontSize: '8px' }}>Patient ID</span><br />
+                <span style={{ fontWeight: 'bold', fontFamily: 'monospace', fontSize: '11px', color: '#c0392b' }}>{data.patientId}</span>
               </div>
-              <div style={{ flex: '2 1 180px' }}>
-                <span style={{ color: '#666', fontSize: '9px', textTransform: 'uppercase' }}>Patient Name</span><br />
-                <span style={{ fontWeight: 'bold', fontSize: '13px' }}>{data.patientName}</span>
+              <div>
+                <span style={{ color: '#666', fontSize: '8px' }}>Name</span><br />
+                <span style={{ fontWeight: 'bold', fontSize: '11px' }}>{data.patientName}</span>
               </div>
-              <div style={{ flex: '1 1 80px' }}>
-                <span style={{ color: '#666', fontSize: '9px', textTransform: 'uppercase' }}>Age / Sex</span><br />
+              <div>
+                <span style={{ color: '#666', fontSize: '8px' }}>Age/Sex</span><br />
                 <span style={{ fontWeight: '600' }}>{data.age} Y / {data.sex.charAt(0)}</span>
               </div>
-              <div style={{ flex: '2 1 160px' }}>
-                <span style={{ color: '#666', fontSize: '9px', textTransform: 'uppercase' }}>Father / Guardian</span><br />
-                <span style={{ fontWeight: '600' }}>{data.fatherName}</span>
+              <div>
+                <span style={{ color: '#666', fontSize: '8px' }}>Father/Guardian</span><br />
+                <span style={{ fontWeight: '600', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{data.fatherName}</span>
               </div>
-              <div style={{ flex: '1 1 100px' }}>
-                <span style={{ color: '#666', fontSize: '9px', textTransform: 'uppercase' }}>Mobile</span><br />
+              <div>
+                <span style={{ color: '#666', fontSize: '8px' }}>Mobile</span><br />
                 <span style={{ fontWeight: '600' }}>{data.mobile}</span>
               </div>
-              <div style={{ flex: '3 1 100%', marginTop: '4px' }}>
-                <span style={{ color: '#666', fontSize: '9px', textTransform: 'uppercase' }}>Address</span><br />
+              <div>
+                <span style={{ color: '#666', fontSize: '8px' }}>Aadhaar ID</span><br />
+                {data.aadhaarVerified ? (
+                  <span style={{ fontWeight: 'bold', color: '#27ae60', display: 'flex', alignItems: 'center', gap: '2px' }}><CheckCircle2 size={10} /> Verified</span>
+                ) : (
+                  <span style={{ fontWeight: 'bold', color: '#e67e22', display: 'flex', alignItems: 'center', gap: '2px' }}><XCircle size={10} /> Not Provided</span>
+                )}
+              </div>
+              <div style={{ gridColumn: '1 / -1', marginTop: '2px' }}>
+                <span style={{ color: '#666', fontSize: '8px' }}>Address: </span>
                 <span style={{ fontWeight: '500' }}>{data.address}</span>
               </div>
             </div>
 
             {/* ══════════ MAIN BODY — 2 COLUMNS ══════════ */}
-            <div style={{ display: 'grid', gridTemplateColumns: '170px 1fr', gap: '16px', minHeight: '450px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '150px 1fr', gap: '12px', flex: 1 }}>
               
               {/* ─── LEFT COLUMN ─── */}
-              <div style={{ borderRight: '1px solid #ddd', paddingRight: '12px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ borderRight: '1px solid #ddd', paddingRight: '10px', display: 'flex', flexDirection: 'column' }}>
                 
-                {/* Investigation */}
-                <div style={{ marginBottom: '16px' }}>
-                  <BubbleSelector
-                    label="Investigation"
-                    options={investigationOptions}
-                    value={slipData.investigation}
-                    onChange={(v) => updateSlipData('investigation', v)}
-                    compact
-                  />
-                  
-                  {/* Investigation Nav QR */}
-                  <div style={{ marginTop: '10px', textAlign: 'center', background: '#f8f9fa', padding: '8px', border: '1px solid #eee', borderRadius: '4px' }}>
-                    <p style={{ fontSize: '9px', fontWeight: 'bold', marginBottom: '4px', color: '#1a5276' }}>Investigation Nav</p>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <QRCodeSVG
-                        value={`https://kartavya.hospital/nav/investigation/${data.patientId}`}
-                        size={48}
-                        level="L"
+                {/* Investigation + QR inline */}
+                <div style={{ marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
+                    <div style={{ flex: 1 }}>
+                      <BubbleSelector
+                        label="Investigation"
+                        options={investigationOptions}
+                        value={slipData.investigation}
+                        onChange={(v) => updateSlipData('investigation', v)}
+                        compact
                       />
                     </div>
-                  </div>
-                </div>
-
-                {/* Advice */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '12px', flex: 1 }}>
-                  <p style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#333', marginBottom: '6px' }}>
-                    Advice
-                  </p>
-                  <textarea
-                    value={slipData.advice}
-                    onChange={(e) => updateSlipData('advice', e.target.value)}
-                    placeholder="Notes..."
-                    style={{
-                      width: '100%', height: '100px', border: '1px dashed #ccc', borderRadius: '4px',
-                      padding: '6px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none',
-                      background: 'transparent'
-                    }}
-                  />
-                </div>
-
-                {/* Follow-Up OMR */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '12px', marginTop: 'auto' }}>
-                  <p style={{ fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: '#333', marginBottom: '8px' }}>
-                    Follow-Up
-                  </p>
-                  
-                  <div style={{ marginBottom: '8px' }}>
-                    <span style={{ fontSize: '9px', color: '#666', display: 'block', marginBottom: '4px' }}>DAYS</span>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                      {omrDays.map(d => (
-                        <div key={`day-${d}`} 
-                          onClick={() => updateSlipData('followUpDay', d)}
-                          className={`omr-bubble ${slipData.followUpDay === d ? 'filled' : ''}`}>
-                          {d}
-                        </div>
-                      ))}
+                    <div style={{ marginLeft: '6px', textAlign: 'center' }}>
+                      <QRCodeSVG value={`https://kartavya.hospital/nav/inv/${data.patientId}`} size={32} level="L" />
+                      <p style={{ fontSize: '6px', color: '#666', marginTop: '2px' }}>Nav</p>
                     </div>
                   </div>
                   
-                  <div>
-                    <span style={{ fontSize: '9px', color: '#666', display: 'block', marginBottom: '4px' }}>MONTHS</span>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
-                      {omrMonths.map(m => (
-                        <div key={`month-${m}`}
-                          onClick={() => updateSlipData('followUpMonth', m)}
-                          className={`omr-bubble ${slipData.followUpMonth === m ? 'filled' : ''}`}>
-                          {m}
-                        </div>
-                      ))}
-                    </div>
+                  {/* Empty space for LFT/KFT */}
+                  <div style={{ border: '1px dashed #ccc', height: '40px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
+                    <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests here (e.g. LFT, KFT)...</span>
                   </div>
                 </div>
 
-              </div>
-
-              {/* ─── RIGHT COLUMN ─── */}
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                
-                {/* Triage - Horizontal layout to save space */}
-                <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '12px', 
-                  marginBottom: '12px',
-                  background: '#f8f9fa',
-                  padding: '6px 12px',
-                  borderRadius: '6px',
-                  border: '1px solid #eee'
-                }}>
-                  <p style={{ fontSize: '10px', fontWeight: 'bold', textTransform: 'uppercase', margin: 0 }}>Triage:</p>
-                  <div style={{ display: 'flex', gap: '12px' }}>
+                {/* Triage (Moved to left, compact) */}
+                <div style={{ marginBottom: '8px', borderTop: '1px solid #eee', paddingTop: '8px' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '4px' }}>Triage</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                     {triageOptions.map((opt) => (
-                      <label key={opt.value} style={{ display: 'flex', items: 'center', gap: '4px', cursor: 'pointer' }}>
+                      <label key={opt.value} style={{ display: 'flex', alignItems: 'center', gap: '4px', cursor: 'pointer' }}>
                         <input 
                           type="radio" 
                           name="triage" 
                           checked={slipData.triagePriority === opt.value}
                           onChange={() => updateSlipData('triagePriority', opt.value)}
-                          style={{ margin: 0, accentColor: opt.color }}
+                          style={{ margin: 0, width: '10px', height: '10px', accentColor: opt.color }}
                         />
-                        <span style={{ fontSize: '11px', fontWeight: slipData.triagePriority === opt.value ? 'bold' : 'normal', color: slipData.triagePriority === opt.value ? opt.color : '#555' }}>
+                        <span style={{ fontSize: '10px', fontWeight: slipData.triagePriority === opt.value ? 'bold' : 'normal', color: slipData.triagePriority === opt.value ? opt.color : '#555' }}>
                           {opt.label}
                         </span>
                       </label>
@@ -298,10 +244,64 @@ export default function OPDSlip({ isKiosk = false }) {
                   </div>
                 </div>
 
-                {/* Prescription Area */}
+                {/* Follow-Up OMR (Smaller space) */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '8px', marginBottom: '8px' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '4px' }}>
+                    Follow-Up
+                  </p>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <div style={{ flex: 1 }}>
+                      <span style={{ fontSize: '7px', color: '#666', display: 'block', marginBottom: '2px' }}>DAYS</span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px' }}>
+                        {omrDays.map(d => (
+                          <div key={`day-${d}`} 
+                            onClick={() => updateSlipData('followUpDay', d)}
+                            className={`omr-bubble ${slipData.followUpDay === d ? 'filled' : ''}`}>
+                            {d}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '7px', color: '#666', display: 'block', marginBottom: '2px' }}>MONTHS</span>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2px' }}>
+                        {omrMonths.map(m => (
+                          <div key={`month-${m}`}
+                            onClick={() => updateSlipData('followUpMonth', m)}
+                            className={`omr-bubble ${slipData.followUpMonth === m ? 'filled' : ''}`}>
+                            {m}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Advice (Takes remaining left space) */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '8px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                  <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '4px' }}>
+                    Advice / Vitals
+                  </p>
+                  <textarea
+                    value={slipData.advice}
+                    onChange={(e) => updateSlipData('advice', e.target.value)}
+                    placeholder="BP, Weight, Notes..."
+                    style={{
+                      width: '100%', flex: 1, border: '1px dashed #ccc', borderRadius: '4px',
+                      padding: '4px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none',
+                      background: 'transparent', minHeight: '60px'
+                    }}
+                  />
+                </div>
+
+              </div>
+
+              {/* ─── RIGHT COLUMN (PRESCRIPTION ONLY) ─── */}
+              <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                
                 <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', marginBottom: '4px' }}>
-                  <span style={{ fontSize: '24px', fontWeight: 'bold', color: '#1a5276', lineHeight: 1 }}>Rx</span>
-                  <span style={{ fontSize: '11px', color: '#888', marginTop: '6px', fontStyle: 'italic' }}>Clinical Notes & Prescription</span>
+                  <span style={{ fontSize: '28px', fontWeight: 'bold', color: '#1a5276', lineHeight: 1 }}>Rx</span>
+                  <span style={{ fontSize: '11px', color: '#888', marginTop: '10px', fontStyle: 'italic' }}>Clinical Notes & Prescription</span>
                 </div>
                 
                 <div style={{
@@ -311,7 +311,8 @@ export default function OPDSlip({ isKiosk = false }) {
                   position: 'relative',
                   backgroundImage: 'repeating-linear-gradient(transparent, transparent 23px, #e8e8e8 23px, #e8e8e8 24px)',
                   backgroundSize: '100% 24px',
-                  backgroundAttachment: 'local'
+                  backgroundAttachment: 'local',
+                  minHeight: '400px'
                 }}>
                   {/* Symptoms prefill */}
                   {data.symptoms && (
@@ -328,7 +329,6 @@ export default function OPDSlip({ isKiosk = false }) {
                       <span style={{ fontWeight: 'bold' }}>C/O:</span> {data.symptoms}
                     </div>
                   )}
-                  {/* Hidden textarea just to allow typing on the lines if needed in demo */}
                   <textarea 
                     style={{
                       width: '100%', height: '100%', background: 'transparent', border: 'none', resize: 'none',
@@ -342,13 +342,13 @@ export default function OPDSlip({ isKiosk = false }) {
 
             {/* ══════════ FOOTER ══════════ */}
             <div style={{
-              marginTop: '20px',
+              marginTop: '12px',
               borderTop: '2px solid #1a1a1a',
-              paddingTop: '8px',
+              paddingTop: '6px',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              fontSize: '9px',
+              fontSize: '8px',
               color: '#666',
             }}>
               <span>System Gen ID: {data.patientId}</span>
