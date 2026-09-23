@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRegistration } from '@/context/RegistrationContext';
 import { useLanguage } from '@/context/LanguageContext';
