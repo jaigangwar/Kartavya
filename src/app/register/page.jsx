@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRegistration } from '@/context/RegistrationContext';
 import PatientDetails from '@/screens/PatientDetails';
@@ -23,8 +23,8 @@ const steps = [
   OPDSlip,
 ];
 
-export default function RegisterPage() {
-  const { step, setMode, resetRegistration } = useRegistration();
+function RegisterContent() {
+  const { step, setMode } = useRegistration();
   const searchParams = useSearchParams();
   const isKiosk = searchParams.get('kiosk') === 'true';
   const [mounted, setMounted] = useState(false);
@@ -32,9 +32,6 @@ export default function RegisterPage() {
   useEffect(() => {
     setMounted(true);
     setMode(isKiosk ? 'kiosk' : 'online');
-    // We shouldn't reset on every render if we just changed step.
-    // Resetting here was clearing data on hot reloads or strict mode.
-    // Assuming context handles initial state.
   }, [isKiosk, setMode]);
 
   if (!mounted) return null;
@@ -43,7 +40,6 @@ export default function RegisterPage() {
 
   const content = (
     <div className={`${isKiosk ? 'max-w-6xl' : 'max-w-4xl'} mx-auto px-6 py-12`}>
-      {/* Show progress bar unless we are on Success (4) or Slip (5) */}
       {step < 4 && (
         <div className="mb-12">
           <ProgressBar />
@@ -61,7 +57,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
-      {/* Header */}
       <header className="glass border-b border-white/10 no-print sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
@@ -79,10 +74,17 @@ export default function RegisterPage() {
         </div>
       </header>
 
-      {/* Step Content */}
       <main className="pb-12 relative z-10">
         {content}
       </main>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }
