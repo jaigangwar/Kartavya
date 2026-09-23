@@ -2,10 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
-
-const stepLabels = ['Patient Details', 'Verification', 'Department', 'Review', 'OPD Slip'];
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ProgressBar({ currentStep = 0, isKiosk = false }) {
+  const { t } = useLanguage();
+  const stepLabels = [t('step1'), t('step2'), t('step3'), t('step4'), t('step5')];
+
   return (
     <div className={`w-full ${isKiosk ? 'px-8 py-6' : 'px-4 py-4'}`}>
       <div className="flex items-center justify-between max-w-2xl mx-auto">

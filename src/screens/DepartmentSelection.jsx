@@ -3,12 +3,14 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRegistration } from '@/context/RegistrationContext';
+import { useLanguage } from '@/context/LanguageContext';
 import ProgressBar from '@/components/ProgressBar';
 import { departments, suggestDepartment } from '@/utils/symptomMapping';
 import { ArrowRight, ArrowLeft, Search, Sparkles, CheckCircle2, Building2, Brain } from 'lucide-react';
 
 export default function DepartmentSelection({ isKiosk = false }) {
   const { data, updateData, nextStep, prevStep } = useRegistration();
+  const { t } = useLanguage();
   const [search, setSearch] = useState('');
   const [showSymptoms, setShowSymptoms] = useState(false);
 
@@ -29,8 +31,8 @@ export default function DepartmentSelection({ isKiosk = false }) {
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
       <div className={cls}>
         <div className="mb-8">
-          <h2 className={`font-heading font-bold text-slate-900 dark:text-white ${isKiosk ? 'text-3xl' : 'text-2xl'}`}>Where would you like to go?</h2>
-          <p className={`text-slate-500 dark:text-slate-400 mt-1 ${isKiosk ? 'text-base' : 'text-sm'}`}>Select your department or describe your problem.</p>
+          <h2 className={`font-heading font-bold text-slate-900 dark:text-white ${isKiosk ? 'text-3xl' : 'text-2xl'}`}>{t('whereToGo')}</h2>
+          <p className={`text-slate-500 dark:text-slate-400 mt-1 ${isKiosk ? 'text-base' : 'text-sm'}`}>{t('whereToGoSub')}</p>
         </div>
 
         {/* ML Feature Highlight */}
@@ -43,10 +45,10 @@ export default function DepartmentSelection({ isKiosk = false }) {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-0.5">
-                <h4 className="font-heading font-semibold text-sm text-slate-900 dark:text-white">AI-Powered Department Suggestion</h4>
+                <h4 className="font-heading font-semibold text-sm text-slate-900 dark:text-white">{t('aiSuggestion')}</h4>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-accent/10 text-accent border border-accent/20">ML ENGINE</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400">Don&apos;t know which department? Describe your symptoms and our ML model will suggest the right department automatically.</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">{t('aiSuggestionSub')}</p>
             </div>
           </div>
         </motion.div>
@@ -56,7 +58,7 @@ export default function DepartmentSelection({ isKiosk = false }) {
           <div className="relative mb-4">
             <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search departments..." className={`${isKiosk ? 'glass-input-lg pl-11' : 'glass-input pl-11'}`} />
+              placeholder={t('searchDept')} className={`${isKiosk ? 'glass-input-lg pl-11' : 'glass-input pl-11'}`} />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-80 overflow-y-auto">
             {filtered.map((dept, i) => {
@@ -77,7 +79,7 @@ export default function DepartmentSelection({ isKiosk = false }) {
               );
             })}
           </div>
-          {filtered.length === 0 && <p className="text-sm text-slate-400 text-center py-8">No departments match your search.</p>}
+          {filtered.length === 0 && <p className="text-sm text-slate-400 text-center py-8">{t('noDeptMatch')}</p>}
         </div>
 
         {/* Symptom Section */}
@@ -85,7 +87,7 @@ export default function DepartmentSelection({ isKiosk = false }) {
           <motion.button whileHover={{ x: 4 }} onClick={() => setShowSymptoms(!showSymptoms)}
             className="flex items-center gap-2 text-accent hover:text-accent-dark transition-colors w-full">
             <Sparkles className="w-5 h-5" />
-            <span className={`font-medium ${isKiosk ? 'text-base' : 'text-sm'}`}>Don&apos;t know the department? Describe your problem</span>
+            <span className={`font-medium ${isKiosk ? 'text-base' : 'text-sm'}`}>{t('describeProblem')}</span>
           </motion.button>
 
           <AnimatePresence>
@@ -94,7 +96,7 @@ export default function DepartmentSelection({ isKiosk = false }) {
                 exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
                 <div className="mt-4">
                   <textarea value={data.symptoms} onChange={(e) => updateData('symptoms', e.target.value)}
-                    placeholder="Describe your symptoms or health problem..." rows={3}
+                    placeholder={t('describeSymptomsPlaceholder')} rows={3}
                     className={`${isKiosk ? 'glass-input-lg' : 'glass-input'} resize-none`} />
 
                   <AnimatePresence>
@@ -104,13 +106,13 @@ export default function DepartmentSelection({ isKiosk = false }) {
                         <div>
                           <div className="flex items-center gap-1.5 mb-0.5">
                             <Sparkles className="w-3 h-3 text-accent" />
-                            <p className="text-xs text-accent font-semibold">ML Suggested Department</p>
+                            <p className="text-xs text-accent font-semibold">{t('mlSuggestedDept')}</p>
                           </div>
                           <p className="font-heading font-bold text-brand dark:text-brand-300">{suggestion}</p>
                         </div>
                         <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                           onClick={handleUseSuggestion} className="btn-primary text-sm py-2 px-4">
-                          Use Suggestion
+                          {t('useSuggestion')}
                         </motion.button>
                       </motion.div>
                     )}
@@ -125,18 +127,18 @@ export default function DepartmentSelection({ isKiosk = false }) {
           <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}
             className="mt-5 flex items-center gap-2 text-success">
             <CheckCircle2 className="w-5 h-5" />
-            <span className={`font-medium ${isKiosk ? 'text-base' : 'text-sm'}`}>Selected: {data.department}</span>
+            <span className={`font-medium ${isKiosk ? 'text-base' : 'text-sm'}`}>{t('selectedDept')}: {data.department}</span>
           </motion.div>
         )}
 
         <div className={`flex justify-between mt-8`}>
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={prevStep} className={isKiosk ? 'btn-ghost text-lg' : 'btn-ghost'}>
-            <ArrowLeft className="w-5 h-5" /> Back
+            <ArrowLeft className="w-5 h-5" /> {t('back')}
           </motion.button>
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
             onClick={handleNext} disabled={!data.department} className={isKiosk ? 'btn-primary-lg' : 'btn-primary'}>
-            Continue <ArrowRight className="w-5 h-5" />
+            {t('continue')} <ArrowRight className="w-5 h-5" />
           </motion.button>
         </div>
       </div>

@@ -78,10 +78,10 @@ export default function AadhaarVerification({ isKiosk }) {
               </button>
               
               <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-2">
-                {scanning ? 'Scanning...' : t('scanAadhaar')}
+                {scanning ? t('scanning') : t('scanAadhaar')}
               </h3>
               <p className="text-sm text-slate-500 dark:text-slate-400">
-                {scanning ? 'Please hold steady' : 'Click to simulate biometric scan'}
+                {scanning ? t('holdSteady') : t('clickToSimulate')}
               </p>
             </motion.div>
           ) : (
@@ -89,8 +89,8 @@ export default function AadhaarVerification({ isKiosk }) {
               <div className="w-24 h-24 mx-auto rounded-full bg-success/10 flex items-center justify-center mb-6">
                 <CheckCircle2 className="w-12 h-12" />
               </div>
-              <h3 className="text-2xl font-bold mb-2">Identity Verified!</h3>
-              <p className="text-success/80">Proceeding to next step...</p>
+              <h3 className="text-2xl font-bold mb-2">{t('identityVerified')}</h3>
+              <p className="text-success/80">{t('proceeding')}</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -98,7 +98,7 @@ export default function AadhaarVerification({ isKiosk }) {
 
       <div className="mt-6 text-center">
         <button onClick={skipVerification} className="text-sm font-medium text-slate-500 hover:text-slate-800 dark:hover:text-white underline underline-offset-4 decoration-slate-300 dark:decoration-slate-700 hover:decoration-slate-800 dark:hover:decoration-white transition-all">
-          Skip verification for now
+          {t('skipVerification')}
         </button>
       </div>
     </motion.div>

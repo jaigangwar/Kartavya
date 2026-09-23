@@ -202,11 +202,8 @@ export default function OPDSlip({ isKiosk = false }) {
                 {/* 1. Vitals */}
                 <div>
                   <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', marginBottom: '2px', color: '#333' }}>Vitals</p>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
-                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>BP:</span></div>
-                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>Pulse:</span></div>
-                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>Temp:</span></div>
-                    <div style={{ border: '1px dashed #ccc', height: '24px', borderRadius: '4px', padding: '2px 4px' }}><span style={{ fontSize: '8px', color: '#888' }}>Weight:</span></div>
+                  <div style={{ border: '1px dashed #ccc', minHeight: '40px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
+                    <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write vitals here...</span>
                   </div>
                 </div>
 
@@ -225,8 +222,8 @@ export default function OPDSlip({ isKiosk = false }) {
                   </div>
                 </div>
 
-                {/* 3. Investigation */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px' }}>
+                {/* 3. Investigation (Larger) */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '4px' }}>
                     <div style={{ flex: 1 }}>
                       <BubbleSelector label="Investigation" options={investigationOptions} value={slipData.investigation} onChange={(v) => updateSlipData('investigation', v)} compact />
@@ -236,15 +233,15 @@ export default function OPDSlip({ isKiosk = false }) {
                       <p style={{ fontSize: '5px', color: '#666', mt: '1px' }}>Nav</p>
                     </div>
                   </div>
-                  <div style={{ border: '1px dashed #ccc', height: '50px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
+                  <div style={{ border: '1px dashed #ccc', flex: 1, minHeight: '80px', borderRadius: '4px', padding: '4px', background: '#fdfdfd' }}>
                     <span style={{ fontSize: '8px', color: '#aaa', fontStyle: 'italic' }}>Write tests (e.g. LFT, KFT)...</span>
                   </div>
                 </div>
 
-                {/* 4. Advice */}
-                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                {/* 4. Advice (Smaller) */}
+                <div style={{ borderTop: '1px solid #eee', paddingTop: '6px' }}>
                   <p style={{ fontSize: '9px', fontWeight: 'bold', textTransform: 'uppercase', color: '#333', marginBottom: '2px' }}>Advice</p>
-                  <textarea value={slipData.advice} onChange={(e) => updateSlipData('advice', e.target.value)} placeholder="Doctor's advice/notes..." style={{ width: '100%', flex: 1, border: '1px dashed #ccc', borderRadius: '4px', padding: '4px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none', background: 'transparent', minHeight: '50px' }} />
+                  <textarea value={slipData.advice} onChange={(e) => updateSlipData('advice', e.target.value)} placeholder="Doctor's advice/notes..." style={{ width: '100%', border: '1px dashed #ccc', borderRadius: '4px', padding: '4px', fontSize: '10px', fontFamily: 'inherit', resize: 'none', outline: 'none', background: 'transparent', minHeight: '30px' }} />
                 </div>
 
                 {/* 5. Follow-Up OMR */}
@@ -324,7 +321,6 @@ export default function OPDSlip({ isKiosk = false }) {
               color: '#666',
             }}>
               <span>System Gen ID: {data.patientId}</span>
-              <span>Valid for 15 days from Date of Registration</span>
               <span style={{ fontStyle: 'italic', fontWeight: 'bold' }}>KARTAVYA — Automating Care</span>
             </div>
           </div>

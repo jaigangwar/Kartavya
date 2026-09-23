@@ -39,7 +39,7 @@ function RegisterContent() {
   const StepComponent = steps[step] || PatientDetails;
 
   const content = (
-    <div className={`${isKiosk ? 'max-w-6xl' : 'max-w-4xl'} mx-auto px-6 py-12`}>
+    <div className={`${isKiosk ? 'max-w-7xl' : 'max-w-4xl'} mx-auto px-6 py-12`}>
       {step < 4 && (
         <div className="mb-12">
           <ProgressBar />

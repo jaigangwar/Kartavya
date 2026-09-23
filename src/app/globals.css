@@ -71,7 +71,11 @@
     border-color: rgba(41, 128, 185, 0.6);
   }
   .glass-input-lg {
-    @apply glass-input px-5 py-4 text-lg rounded-2xl;
+    @apply w-full bg-white/50 dark:bg-slate-900/50 border-2 border-white/40 dark:border-slate-700/50 rounded-2xl px-6 py-5 text-xl
+    text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500
+    focus:outline-none focus:ring-4 focus:ring-brand/30 focus:border-brand/50
+    transition-all duration-300 backdrop-blur-md shadow-lg shadow-black/5
+    dark:shadow-black/20;
   }
 
   /* ─── Buttons ─── */
