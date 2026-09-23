@@ -6,7 +6,7 @@
 
 const mappings = [
   {
-    keywords: ['fever', 'cold', 'cough', 'weakness', 'body ache', 'flu', 'headache', 'fatigue', 'vomiting', 'diarrhea', 'nausea', 'throat', 'bukhar', 'khansi', 'jukam', 'kamzori', 'chakker', 'chakkar', 'ulti', 'dard', 'pet dard', 'बुखार', 'खांसी', 'जुकाम', 'कमज़ोरी', 'कमजोरी', 'चक्कर', 'उल्टी', 'दर्द', 'पेट दर्द', 'थकान', 'खासी'],
+    keywords: ['fever', 'cold', 'cough', 'weakness', 'body ache', 'flu', 'fatigue', 'vomiting', 'diarrhea', 'nausea', 'bukhar', 'khansi', 'jukam', 'kamzori', 'ulti', 'dard', 'pet dard', 'बुखार', 'खांसी', 'जुकाम', 'कमज़ोरी', 'कमजोरी', 'उल्टी', 'दर्द', 'पेट दर्द', 'थकान', 'खासी'],
     department: 'General Medicine',
   },
   {
@@ -18,7 +18,7 @@ const mappings = [
     department: 'Cardiology',
   },
   {
-    keywords: ['brain', 'nerve', 'seizure', 'migraine', 'numbness', 'paralysis', 'stroke', 'dizziness', 'memory', 'dimag', 'nas', 'lakwa', 'bhool', 'दिमाग', 'नस', 'लकवा', 'भूल', 'दौरा', 'चक्कर'],
+    keywords: ['brain', 'nerve', 'seizure', 'migraine', 'numbness', 'paralysis', 'stroke', 'memory', 'dimag', 'nas', 'lakwa', 'bhool', 'दिमाग', 'नस', 'लकवा', 'भूल', 'दौरा'],
     department: 'Neurology',
   },
   {
@@ -34,7 +34,7 @@ const mappings = [
     department: 'Dermatology',
   },
   {
-    keywords: ['ear', 'nose', 'throat', 'hearing', 'sinus', 'tonsil', 'snoring', 'voice', 'kaan', 'kan', 'naak', 'nak', 'gala', 'awaz', 'कान', 'नाक', 'गला', 'आवाज़', 'आवाज'],
+    keywords: ['ear', 'nose', 'throat', 'hearing', 'sinus', 'tonsil', 'snoring', 'voice', 'kaan', 'kan', 'naak', 'nak', 'gala', 'awaz', 'कान', 'नाक', 'गला', 'आवाज़', 'आवाज', 'headache', 'sir dard', 'sir', 'सिर दर्द', 'सिर', 'चक्कर', 'chakkar', 'chakker', 'chkkar', 'dizziness'],
     department: 'ENT',
   },
   {
@@ -89,10 +89,14 @@ export function translateToMedicalTerms(symptoms) {
     { hi: 'चक्कर', en: 'Dizziness/Vertigo' },
     { hi: 'chakkar', en: 'Dizziness/Vertigo' },
     { hi: 'chakker', en: 'Dizziness/Vertigo' },
+    { hi: 'chkkar', en: 'Dizziness/Vertigo' },
     { hi: 'उल्टी', en: 'Vomiting' },
     { hi: 'ulti', en: 'Vomiting' },
     { hi: 'पेट दर्द', en: 'Abdominal Pain' },
     { hi: 'pet dard', en: 'Abdominal Pain' },
+    { hi: 'सिर दर्द', en: 'Headache' },
+    { hi: 'sir dard', en: 'Headache' },
+    { hi: 'headache', en: 'Headache' },
     { hi: 'दर्द', en: 'Pain' },
     { hi: 'dard', en: 'Pain' },
     { hi: 'कमज़ोरी', en: 'Weakness' },
