@@ -6,43 +6,43 @@
 
 const mappings = [
   {
-    keywords: ['fever', 'cold', 'cough', 'weakness', 'body ache', 'flu', 'headache', 'fatigue', 'vomiting', 'diarrhea', 'nausea', 'throat'],
+    keywords: ['fever', 'cold', 'cough', 'weakness', 'body ache', 'flu', 'headache', 'fatigue', 'vomiting', 'diarrhea', 'nausea', 'throat', 'bukhar', 'khansi', 'jukam', 'kamzori', 'chakker', 'chakkar', 'ulti', 'dard', 'pet dard'],
     department: 'General Medicine',
   },
   {
-    keywords: ['bone', 'fracture', 'knee', 'joint', 'back pain', 'spine', 'shoulder', 'hip', 'ankle', 'sprain', 'arthritis'],
+    keywords: ['bone', 'fracture', 'knee', 'joint', 'back pain', 'spine', 'shoulder', 'hip', 'ankle', 'sprain', 'arthritis', 'haddi', 'ghutna', 'kamar', 'kandha', 'moch'],
     department: 'Orthopedics',
   },
   {
-    keywords: ['heart', 'chest pain', 'blood pressure', 'bp', 'palpitation', 'cardiac', 'heartbeat'],
+    keywords: ['heart', 'chest pain', 'blood pressure', 'bp', 'palpitation', 'cardiac', 'heartbeat', 'dil', 'chhati', 'ghabrahat'],
     department: 'Cardiology',
   },
   {
-    keywords: ['brain', 'nerve', 'seizure', 'migraine', 'numbness', 'paralysis', 'stroke', 'dizziness', 'memory'],
+    keywords: ['brain', 'nerve', 'seizure', 'migraine', 'numbness', 'paralysis', 'stroke', 'dizziness', 'memory', 'dimag', 'nas', 'lakwa', 'bhool'],
     department: 'Neurology',
   },
   {
-    keywords: ['child', 'baby', 'infant', 'pediatric', 'newborn', 'toddler', 'kid'],
+    keywords: ['child', 'baby', 'infant', 'pediatric', 'newborn', 'toddler', 'kid', 'bacha', 'bache', 'shishu'],
     department: 'Pediatrics',
   },
   {
-    keywords: ['pregnancy', 'period', 'menstrual', 'gynec', 'women', 'uterus', 'ovary', 'pcos', 'delivery'],
+    keywords: ['pregnancy', 'period', 'menstrual', 'gynec', 'women', 'uterus', 'ovary', 'pcos', 'delivery', 'mahavari', 'garbhavati', 'mahila', 'bachadani'],
     department: 'Gynecology',
   },
   {
-    keywords: ['skin', 'rash', 'acne', 'eczema', 'allergy', 'itch', 'fungal', 'hair loss', 'pigment'],
+    keywords: ['skin', 'rash', 'acne', 'eczema', 'allergy', 'itch', 'fungal', 'hair loss', 'pigment', 'tvacha', 'khujli', 'daane', 'baal', 'bal'],
     department: 'Dermatology',
   },
   {
-    keywords: ['ear', 'nose', 'throat', 'hearing', 'sinus', 'tonsil', 'snoring', 'voice'],
+    keywords: ['ear', 'nose', 'throat', 'hearing', 'sinus', 'tonsil', 'snoring', 'voice', 'kaan', 'kan', 'naak', 'nak', 'gala', 'awaz'],
     department: 'ENT',
   },
   {
-    keywords: ['eye', 'vision', 'sight', 'blind', 'cataract', 'spectacle', 'glasses', 'retina'],
+    keywords: ['eye', 'vision', 'sight', 'blind', 'cataract', 'spectacle', 'glasses', 'retina', 'aankh', 'ankh', 'nazar', 'chashma'],
     department: 'Ophthalmology',
   },
   {
-    keywords: ['blood test', 'lab', 'pathology', 'biopsy', 'sample', 'report'],
+    keywords: ['blood test', 'lab', 'pathology', 'biopsy', 'sample', 'report', 'khoon', 'khun ki janch', 'test'],
     department: 'Pathology',
   },
   {

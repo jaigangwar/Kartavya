@@ -86,8 +86,8 @@ export default function Landing() {
           <div className="flex items-center gap-3">
             <motion.div initial={{ rotate: -180, scale: 0 }} animate={{ rotate: 0, scale: 1 }}
               transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-              className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-accent flex items-center justify-center shadow-lg shadow-brand/20">
-              <Shield className="w-5 h-5 text-white" />
+              className="w-10 h-10 rounded-xl bg-white overflow-hidden flex items-center justify-center shadow-lg shadow-brand/20 border border-slate-200 dark:border-slate-700">
+              <img src="/logo.jfif" alt="Kartavya Logo" className="w-full h-full object-cover" />
             </motion.div>
             <div>
               <h1 className="font-heading font-bold text-brand dark:text-brand-300 text-lg tracking-tight">KARTAVYA</h1>
@@ -145,19 +145,20 @@ export default function Landing() {
         </div>
 
         {/* 3D Floating Card */}
-        <div className="flex justify-center pb-12 relative z-10">
+        <div className="flex justify-center pb-12 relative z-10 mt-8">
+          <div className="absolute inset-0 bg-brand-500/20 blur-[100px] rounded-full scale-150 pointer-events-none" />
           <Card3D>
             <motion.div initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="glass-card p-8 max-w-sm mx-6 text-center shadow-2xl relative overflow-hidden">
+              className="glass-card p-8 max-w-sm mx-6 text-center shadow-[0_0_50px_rgba(41,128,185,0.3)] relative overflow-hidden border-2 border-brand/20 backdrop-blur-2xl bg-white/40 dark:bg-slate-900/40">
               <div className="absolute inset-0 bg-gradient-to-br from-brand-500/10 to-accent/10 pointer-events-none" />
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand to-accent flex items-center justify-center mx-auto mb-4 animate-float shadow-xl shadow-brand/20">
-                <Sparkles className="w-8 h-8 text-white" />
+              <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-brand to-accent flex items-center justify-center mx-auto mb-6 animate-float shadow-xl shadow-brand/40 border border-white/20">
+                <Sparkles className="w-10 h-10 text-white" />
               </div>
-              <h3 className="font-heading font-bold text-lg text-slate-900 dark:text-white mb-1 relative z-10">AI-Powered Routing</h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 relative z-10">Describe your symptoms and get auto-assigned to the right department using our ML engine.</p>
-              <div className="mt-4 inline-flex items-center gap-1 text-xs font-bold text-white px-3 py-1.5 rounded-full bg-gradient-to-r from-accent to-emerald-500 shadow-lg relative z-10 animate-pulse-gentle">
-                <Sparkles className="w-3 h-3" /> ML-Powered Feature
+              <h3 className="font-heading font-bold text-2xl text-slate-900 dark:text-white mb-2 relative z-10">AI-Powered Routing</h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 relative z-10 font-medium">Describe your symptoms in English or Hindi and get auto-assigned to the right department instantly.</p>
+              <div className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-white px-4 py-2 rounded-full bg-gradient-to-r from-accent to-emerald-500 shadow-[0_0_15px_rgba(46,204,113,0.5)] relative z-10 animate-pulse-gentle">
+                <Sparkles className="w-4 h-4" /> LIVE ML ENGINE
               </div>
             </motion.div>
           </Card3D>

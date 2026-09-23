@@ -33,7 +33,7 @@ export default function DepartmentSelection({ isKiosk = false }) {
     }
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
-    recognition.lang = 'en-IN'; // Can be dynamic based on LanguageContext
+    recognition.lang = 'hi-IN'; // Listen in Hindi/Hinglish
     recognition.continuous = false;
     recognition.interimResults = false;
 

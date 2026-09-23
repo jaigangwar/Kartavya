@@ -27,8 +27,8 @@ export default function KioskLayout({ children }) {
       <header className="flex-shrink-0 glass border-b border-white/10 px-6 py-4 flex items-center justify-between relative z-10 bg-[length:200%_200%] animate-gradient-shift"
         style={{ background: 'linear-gradient(135deg, rgba(26,82,118,0.95), rgba(20,143,119,0.9), rgba(26,82,118,0.95))', backgroundSize: '200% 200%' }}>
         <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-inner">
-            <Shield className="w-8 h-8 text-white drop-shadow-md" />
+          <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shadow-inner overflow-hidden border border-white/20">
+            <img src="/logo.jfif" alt="Kartavya Logo" className="w-full h-full object-cover" />
           </div>
           <div>
             <h1 className="text-white font-heading font-bold text-2xl tracking-tight drop-shadow-sm">KARTAVYA</h1>

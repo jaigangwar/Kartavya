@@ -60,8 +60,8 @@ function RegisterContent() {
       <header className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-white/10 no-print sticky top-0 z-50 shadow-sm transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand to-accent flex items-center justify-center">
-              <Shield className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 rounded-lg bg-white overflow-hidden shadow-sm flex items-center justify-center">
+              <img src="/logo.jfif" alt="Logo" className="w-full h-full object-cover" />
             </div>
             <div>
               <h1 className="font-heading font-bold text-brand dark:text-brand-300 text-sm tracking-tight">KARTAVYA</h1>
