@@ -7,6 +7,7 @@ import BubbleSelector from '@/components/BubbleSelector';
 import { QRCodeSVG } from 'qrcode.react';
 import { Printer, Download, RotateCcw, ArrowLeft, Sparkles, CheckCircle2, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { translateToMedicalTerms } from '@/utils/symptomMapping';
 
 const investigationOptions = [
   { value: 'Pathology', label: 'Pathology' },
@@ -289,7 +290,7 @@ export default function OPDSlip({ isKiosk = false }) {
                       background: 'rgba(255,255,255,0.8)',
                       padding: '2px 4px'
                     }}>
-                      <span style={{ fontWeight: 'bold' }}>C/O:</span> {data.symptoms}
+                      <span style={{ fontWeight: 'bold' }}>C/O:</span> {translateToMedicalTerms(data.symptoms)}
                     </div>
                   )}
                   <textarea 

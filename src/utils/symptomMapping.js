@@ -75,6 +75,82 @@ export function suggestDepartment(symptoms) {
   return bestMatch;
 }
 
+export function translateToMedicalTerms(symptoms) {
+  if (!symptoms) return '';
+  const text = symptoms.toLowerCase();
+  
+  const translations = [
+    { hi: 'बुखार', en: 'Fever' },
+    { hi: 'bukhar', en: 'Fever' },
+    { hi: 'खांसी', en: 'Cough' },
+    { hi: 'खासी', en: 'Cough' },
+    { hi: 'khansi', en: 'Cough' },
+    { hi: 'जुकाम', en: 'Cold/Coryza' },
+    { hi: 'चक्कर', en: 'Dizziness/Vertigo' },
+    { hi: 'chakkar', en: 'Dizziness/Vertigo' },
+    { hi: 'chakker', en: 'Dizziness/Vertigo' },
+    { hi: 'उल्टी', en: 'Vomiting' },
+    { hi: 'ulti', en: 'Vomiting' },
+    { hi: 'पेट दर्द', en: 'Abdominal Pain' },
+    { hi: 'pet dard', en: 'Abdominal Pain' },
+    { hi: 'दर्द', en: 'Pain' },
+    { hi: 'dard', en: 'Pain' },
+    { hi: 'कमज़ोरी', en: 'Weakness' },
+    { hi: 'कमजोरी', en: 'Weakness' },
+    { hi: 'थकान', en: 'Fatigue' },
+    { hi: 'हड्डी', en: 'Bone' },
+    { hi: 'घुटना', en: 'Knee' },
+    { hi: 'कमर', en: 'Back' },
+    { hi: 'कंधा', en: 'Shoulder' },
+    { hi: 'मोच', en: 'Sprain' },
+    { hi: 'दिल', en: 'Cardiac' },
+    { hi: 'छाती', en: 'Chest' },
+    { hi: 'घबराहट', en: 'Palpitations' },
+    { hi: 'बीपी', en: 'Blood Pressure' },
+    { hi: 'दिमाग', en: 'Neurological' },
+    { hi: 'नस', en: 'Nerve' },
+    { hi: 'लकवा', en: 'Paralysis' },
+    { hi: 'भूल', en: 'Memory loss' },
+    { hi: 'दौरा', en: 'Seizures' },
+    { hi: 'बच्चा', en: 'Pediatric' },
+    { hi: 'शिशु', en: 'Infant' },
+    { hi: 'माहवारी', en: 'Menstrual' },
+    { hi: 'गर्भवती', en: 'Pregnancy' },
+    { hi: 'बच्चेदानी', en: 'Uterus' },
+    { hi: 'त्वचा', en: 'Skin' },
+    { hi: 'खुजली', en: 'Pruritus / Itching' },
+    { hi: 'दाने', en: 'Rash' },
+    { hi: 'कान', en: 'Ear' },
+    { hi: 'नाक', en: 'Nose' },
+    { hi: 'गला', en: 'Throat' },
+    { hi: 'आंख', en: 'Eye' },
+    { hi: 'नज़र', en: 'Vision' },
+    { hi: 'खून', en: 'Blood' },
+    { hi: 'जांच', en: 'Test' },
+  ];
+
+  let matchedTerms = [];
+  // Sort translations by length descending to match longer phrases first
+  const sortedTranslations = [...translations].sort((a, b) => b.hi.length - a.hi.length);
+
+  let tempText = text;
+  for (const { hi, en } of sortedTranslations) {
+    if (tempText.includes(hi)) {
+      if (!matchedTerms.includes(en)) {
+        matchedTerms.push(en);
+      }
+      // Remove matched word so it doesn't match smaller sub-words
+      tempText = tempText.replace(new RegExp(hi, 'g'), '');
+    }
+  }
+
+  if (matchedTerms.length > 0) {
+    return matchedTerms.join(', ');
+  }
+
+  return symptoms;
+}
+
 /**
  * All available departments.
  */
